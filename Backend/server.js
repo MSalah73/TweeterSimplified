@@ -1,19 +1,18 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const dotenv = require("dotenv/config");
+require("dotenv/config");
 const ejsLayouts = require("express-ejs-layouts");
 const session = require("express-session");
-const passport = require('passport');//after you session 
+const passport = require("passport"); //after you session
 
 //Routes
 const tweetsRoutes = require("./routes/tweets");
 const authRoutes = require("./routes/auth");
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-mongoose.set('useCreateIndex', true)
+mongoose.set("useCreateIndex", true);
 app.set("view engine", "ejs");
 app.use(ejsLayouts);
 
@@ -25,13 +24,15 @@ mongoose.connect(
   }
 );
 
-app.use("/tweets", tweetRoutes);
+app.use("/tweets", tweetsRoutes);
 app.use("/auth", authRoutes);
-app.use(session({
-	secret: process.env.SECRET,
-	resave:false,
-	saveUninitialized: true
-}));
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true
+  })
+);
 //passport ininitalied after you session is a must
 app.use(passport.initialize());
 app.use(passport.session());
