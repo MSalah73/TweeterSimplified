@@ -38,7 +38,8 @@ router.post('/register', (request, response)=>{
 
   let data = {
     username : request.body.username ,
-    password: request.body.password 
+    password: request.body.password,
+        email : request.body.email
   }
 
   let user = new User(data)
@@ -57,12 +58,12 @@ router.post('/register', (request, response)=>{
 router.post('/login', (request, response) => {
 
   passport.authenticate('local', {session: false}, (err, user, info) => {
-    console.log(user, "local")
     if (err || !user) {
         return response.status(401).json({
             message: info ? info.message : 'Login failed',
             user   : user
         });
+
     }
 
    request.login(user, {session: false}, (err) => {

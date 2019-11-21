@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const saltRounds = 10
 
 const userSchema = new Schema({
-   email : { type: String, required: true, unique : true},
+ email : { type: String, required: true, unique : true},
  username : { type: String, required: true, unique : true},
  password : { type: String, required: true},
  tweet : [{ type: Schema.Types.ObjectId, ref : 'Tweet'}]

@@ -30,7 +30,6 @@ mongoose.connect(
   }
 );
 
-app.use("/tweets", tweetsRoutes);
 
 //create session for passport
 app.use(session({
@@ -43,6 +42,8 @@ app.use('/tweets', passport.authenticate('jwt', {session: false}), require('./ro
 //passport ininitalied after you session is a must
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/tweets", tweetsRoutes);
 
 app.get("*", (req, res) => {
   res.render("404");
